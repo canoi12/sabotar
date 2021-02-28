@@ -1,0 +1,3 @@
+sbtar
+*.a
+src/*.o
