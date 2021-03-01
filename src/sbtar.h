@@ -6,32 +6,32 @@
 #define SBTAR_VERSION "0.1.0"
 
 #ifndef SBTAR_MALLOC
-	#define SBTAR_MALLOC malloc
+  #define SBTAR_MALLOC malloc
 #endif
 
 #define STR(x) #x
 #define SBTAR_ASSERT(expr) \
-	if (!(expr)) { \
-		fprintf(stderr, "Assertion failed: %s\n", STR(expr)); \
-		exit(1); \
-	}
+  if (!(expr)) { \
+    fprintf(stderr, "Assertion failed: %s\n", STR(expr)); \
+    exit(1); \
+  }
 
-#define SBTAR_NAME_OFFSET 		0
-#define SBTAR_MODE_OFFSET 		100
-#define SBTAR_UID_OFFSET 			108
-#define SBTAR_GID_OFFSET 			116
-#define SBTAR_SIZE_OFFSET 		124
-#define SBTAR_MTIME_OFFSET		136
-#define SBTAR_CHKSUM_OFFSET		148
-#define SBTAR_TYPE_OFFSET			156
-#define SBTAR_LINKNAME_OFFSET	157
-#define SBTAR_MAGIC_OFFSET 		257
-#define SBTAR_VERSION_OFFSET 	263
-#define SBTAR_UNAME_OFFSET		265
-#define SBTAR_GNAME_OFFSET		297
-#define SBTAR_DEVMAJ_OFFSET		329
-#define SBTAR_DEVMIN_OFFSET		337
-#define SBTAR_PREFIX_OFFSET		345
+#define SBTAR_NAME_OFFSET     0
+#define SBTAR_MODE_OFFSET     100
+#define SBTAR_UID_OFFSET      108
+#define SBTAR_GID_OFFSET      116
+#define SBTAR_SIZE_OFFSET     124
+#define SBTAR_MTIME_OFFSET    136
+#define SBTAR_CHKSUM_OFFSET   148
+#define SBTAR_TYPE_OFFSET     156
+#define SBTAR_LINKNAME_OFFSET 157
+#define SBTAR_MAGIC_OFFSET    257
+#define SBTAR_VERSION_OFFSET  263
+#define SBTAR_UNAME_OFFSET    265
+#define SBTAR_GNAME_OFFSET    297
+#define SBTAR_DEVMAJ_OFFSET   329
+#define SBTAR_DEVMIN_OFFSET   337
+#define SBTAR_PREFIX_OFFSET   345
 
 #define TMAGIC "ustar"
 
@@ -44,34 +44,34 @@
 #include <stdlib.h>
 
 enum {
-	SBTAR_TREG = 0,
-	SBTAR_TLINK,
-	SBTAR_TSYM,
-	SBTAR_TCHR,
-	SBTAR_TBLK,
-	SBTAR_TDIR,
-	SBTAR_TFIFO
-
+  SBTAR_TREG = 0,
+  SBTAR_TLINK,
+  SBTAR_TSYM,
+  SBTAR_TCHR,
+  SBTAR_TBLK,
+  SBTAR_TDIR,
+  SBTAR_TFIFO
 };
 
 typedef struct sbtar_t sbtar_t;
-typedef union posix_header_t posix_header_t;
 typedef struct sbtar_header_t sbtar_header_t;
+typedef struct posix_header_t posix_header_t;
 
 struct sbtar_t {
-	unsigned offset;
-	unsigned size;
+  unsigned offset;
+  unsigned size;
 
-	FILE *fp;
+  FILE *fp;
 };
 
 struct sbtar_header_t {
-	unsigned size;
-	unsigned mode;
-	unsigned type;
-	unsigned mtime;
-	char name[100];
-	char linkname[100];
+  unsigned size;
+  unsigned mode;
+  unsigned type;
+  unsigned mtime;
+  char name[100];
+  char linkname[100];
+  char uname[32], gname[32];
 };
 
 SBTAR_API void sbtar_open(sbtar_t *tar, const char *filename);
