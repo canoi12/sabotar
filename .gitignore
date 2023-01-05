@@ -1,3 +1,6 @@
 sbtar
 *.a
+*.so
+*.dll
 *.o
+*.do
